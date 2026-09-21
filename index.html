@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>به‌زودی برمی‌گردیم | Coming Soon</title>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;500;700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    height: 100%;
+    overflow: hidden;
+    font-family: 'Vazirmatn', sans-serif;
+    background: #05060a;
+    color: #fff;
+  }
+
+  /* پس‌زمینه گرادیانی متحرک */
+  .bg {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at 20% 30%, #1a0033 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, #001a33 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, #0a0a1a 0%, #000 100%);
+    z-index: -3;
+  }
+
+  /* حباب‌های نورانی شناور */
+  .orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.5;
+    z-index: -2;
+    animation: float 12s ease-in-out infinite;
+  }
+  .orb1 { width: 400px; height: 400px; background: #7c3aed; top: -100px; right: -100px; }
+  .orb2 { width: 350px; height: 350px; background: #06b6d4; bottom: -100px; left: -100px; animation-delay: -4s; }
+  .orb3 { width: 300px; height: 300px; background: #ec4899; top: 40%; left: 40%; animation-delay: -8s; }
+
+  @keyframes float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(40px, -30px) scale(1.1); }
+    66% { transform: translate(-30px, 40px) scale(0.95); }
+  }
+
+  /* شبکه نقطه‌ای ظریف */
+  .grid {
+    position: fixed;
+    inset: 0;
+    background-image: radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px);
+    background-size: 32px 32px;
+    z-index: -1;
+    mask-image: radial-gradient(circle at center, black 20%, transparent 75%);
+  }
+
+  /* کارت اصلی گلس‌مورفیزم */
+  .container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .card {
+    position: relative;
+    max-width: 620px;
+    width: 100%;
+    padding: 60px 40px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 28px;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.6),
+                inset 0 1px 0 rgba(255,255,255,0.15);
+    animation: fadeUp 1s cubic-bezier(.2,.8,.2,1);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* حاشیه نورانی متحرک */
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 28px;
+    padding: 1px;
+    background: linear-gradient(120deg, #7c3aed, #06b6d4, #ec4899, #7c3aed);
+    background-size: 300% 300%;
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    animation: borderMove 6s linear infinite;
+    pointer-events: none;
+  }
+
+  @keyframes borderMove {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 300% 50%; }
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 8px 18px;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: #a78bfa;
+    border: 1px solid rgba(167,139,250,0.4);
+    border-radius: 999px;
+    background: rgba(124,58,237,0.08);
+    margin-bottom: 28px;
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(124,58,237,0.4); }
+    50% { box-shadow: 0 0 0 12px rgba(124,58,237,0); }
+  }
+
+  h1 {
+    font-size: clamp(2rem, 6vw, 3.4rem);
+    font-weight: 900;
+    line-height: 1.2;
+    background: linear-gradient(135deg, #fff 0%, #a78bfa 40%, #22d3ee 80%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 18px;
+    letter-spacing: -1px;
+  }
+
+  p.sub {
+    color: #9ca3af;
+    font-size: clamp(14px, 2vw, 17px);
+    font-weight: 300;
+    line-height: 1.9;
+    margin-bottom: 40px;
+  }
+
+  /* شمارش معکوس */
+  .countdown {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    margin-bottom: 44px;
+    flex-wrap: wrap;
+  }
+  .cd-box {
+    min-width: 82px;
+    padding: 16px 10px;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: transform .3s, border-color .3s;
+  }
+  .cd-box:hover {
+    transform: translateY(-6px);
+    border-color: rgba(167,139,250,0.5);
+  }
+  .cd-num {
+    font-size: 28px;
+    font-weight: 700;
+    color: #fff;
+    font-variant-numeric: tabular-nums;
+  }
+  .cd-label {
+    font-size: 11px;
+    color: #6b7280;
+    margin-top: 4px;
+    letter-spacing: 1px;
+  }
+
+  /* فرم ایمیل */
+  .form {
+    display: flex;
+    gap: 10px;
+    max-width: 440px;
+    margin: 0 auto 30px;
+    flex-wrap: wrap;
+  }
+  .form input {
+    flex: 1;
+    min-width: 200px;
+    padding: 14px 20px;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.04);
+    color: #fff;
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    transition: border-color .3s, box-shadow .3s;
+  }
+  .form input::placeholder { color: #6b7280; }
+  .form input:focus {
+    border-color: #7c3aed;
+    box-shadow: 0 0 0 4px rgba(124,58,237,0.15);
+  }
+
+  .btn {
+    padding: 14px 28px;
+    border: none;
+    border-radius: 14px;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 14px;
+    color: #fff;
+    cursor: pointer;
+    background: linear-gradient(135deg, #7c3aed, #06b6d4);
+    background-size: 200% 200%;
+    transition: all .35s;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn:hover {
+    background-position: 100% 50%;
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(124,58,237,0.5);
+  }
+  .btn:active { transform: translateY(0); }
+
+  /* آیکن‌های شبکه اجتماعی */
+  .socials {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 30px;
+  }
+  .socials a {
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    color: #9ca3af;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    transition: all .3s;
+    text-decoration: none;
+  }
+  .socials a:hover {
+    color: #fff;
+    transform: translateY(-4px);
+    border-color: #7c3aed;
+    background: rgba(124,58,237,0.15);
+    box-shadow: 0 10px 25px rgba(124,58,237,0.3);
+  }
+  .socials svg { width: 20px; height: 20px; }
+
+  @media (max-width: 480px) {
+    .card { padding: 40px 22px; border-radius: 22px; }
+    .cd-box { min-width: 68px; padding: 12px 8px; }
+    .cd-num { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg"></div>
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+<div class="orb orb3"></div>
+<div class="grid"></div>
+
+<div class="container">
+  <div class="card">
+    <span class="badge">✦ در حال به‌روزرسانی ✦</span>
+    <h1>چیزی خفن در راهه</h1>
+    <p class="sub">
+      داریم سایتمون رو با یه تجربه‌ی کاملاً جدید آماده می‌کنیم.<br>
+      به‌زودی برمی‌گردیم — همین‌جا منتظر ما باش.
+    </p>
+
+    <div class="countdown" id="countdown">
+      <div class="cd-box"><div class="cd-num" id="days">00</div><div class="cd-label">روز</div></div>
+      <div class="cd-box"><div class="cd-num" id="hours">00</div><div class="cd-label">ساعت</div></div>
+      <div class="cd-box"><div class="cd-num" id="minutes">00</div><div class="cd-label">دقیقه</div></div>
+      <div class="cd-box"><div class="cd-num" id="seconds">00</div><div class="cd-label">ثانیه</div></div>
+    </div>
+
+    <form class="form" onsubmit="event.preventDefault(); this.querySelector('button').innerText='✓ ثبت شد';">
+      <input type="email" placeholder="ایمیلت رو وارد کن..." required>
+      <button type="submit" class="btn">باخبرم کن</button>
+    </form>
+
+    <div class="socials">
+      <a href="#" aria-label="Instagram">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+      </a>
+      <a href="#" aria-label="Telegram">
+        <svg fill="currentColor" viewBox="0 0 24 24"><path d="M21.5 3.5 2.7 10.9c-1.2.5-1.2 1.2-.2 1.5l4.7 1.5 1.8 5.5c.2.6.4.8 1 .8.4 0 .6-.2.9-.5l2.2-2.1 4.6 3.4c.8.5 1.4.2 1.6-.8l3-14c.3-1.3-.5-1.9-1.8-1.3z"/></svg>
+      </a>
+      <a href="#" aria-label="X">
+        <svg fill="currentColor" viewBox="0 0 24 24"><path d="M18.9 2H22l-7.5 8.6L23 22h-6.9l-5.4-7-6.2 7H1.4l8-9.1L1 2h7l4.9 6.5L18.9 2zm-1.2 18h1.7L7.4 3.8H5.6L17.7 20z"/></svg>
+      </a>
+      <a href="#" aria-label="GitHub">
+        <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.8 10.9.6.1.8-.2.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.6-1.3-1.6-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 016 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.9 1.2 3.1 0 4.5-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.6-1.5 7.8-5.8 7.8-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  // شمارش معکوس تا ۷ روز آینده — تاریخ دلخواه رو اینجا تنظیم کن
+  const targetDate = new Date();
+  targetDate.setDate(targetDate.getDate() + 7);
+
+  function pad(n) { return String(n).padStart(2, '0'); }
+
+  function updateCountdown() {
+    const now = new Date();
+    const diff = targetDate - now;
+    if (diff <= 0) return;
+
+    document.getElementById('days').innerText    = pad(Math.floor(diff / 86400000));
+    document.getElementById('hours').innerText   = pad(Math.floor(diff / 3600000) % 24);
+    document.getElementById('minutes').innerText = pad(Math.floor(diff / 60000) % 60);
+    document.getElementById('seconds').innerText = pad(Math.floor(diff / 1000) % 60);
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // افکت پارالاکس ملایم با موس
+  document.addEventListener('mousemove', (e) => {
+    const x = (e.clientX / window.innerWidth - 0.5) * 20;
+    const y = (e.clientY / window.innerHeight - 0.5) * 20;
+    document.querySelectorAll('.orb').forEach((orb, i) => {
+      const f = (i + 1) * 0.6;
+      orb.style.transform = `translate(${x * f}px, ${y * f}px)`;
+    });
+  });
+</script>
+
+</body>
+  </html>
